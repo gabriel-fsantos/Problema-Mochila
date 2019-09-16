@@ -11,6 +11,17 @@ Data:
 typedef struct produto{
 	int peso;
 	int valor;
+	int numero;
+	double razao;
 } Produto;
 
-Produto* newProduto(int peso, int valor);
+Produto* newProduto(int peso, int valor, int numero);
+
+bool comparaRazao(Produto p1, Produto p2);
+
+bool comparaValor(Produto p1, Produto p2);
+
+void sortRazao(Produto* vet, int tamanho);
+
+void sortValor(Produto* vet, int tamanho);
+
