@@ -31,16 +31,30 @@ int main(int argc, char *argv[]){
 	//obtendo o tempo em que o programa comeca.
 	gettimeofday(&inicio, NULL);
 
+	FILE *f1, *f2;
+
+	char str1[20], str2[20];
 	int max_peso, num_itens, peso, valor, mochila;
-	scanf("%d %d", &max_peso, &num_itens);
+
+	printf("Digite o nome do arquivo de entrada e o de saida: ");
+	scanf("%s", str1);
+	scanf("%s", str2);
+	
+	f1 = fopen(str1, "r");
+	f2 = fopen(str2, "w");
+
+	fscanf(f1, "%d", &max_peso);
+	fscanf(f1, "%d", &num_itens);
+	
+	//scanf("%d %d", &max_peso, &num_itens);
 
 	mochila = max_peso;
 
 	Produto *vetor;
 	vetor = (Produto*)malloc(num_itens * sizeof(Produto));
-	
+
 	for(int i = 0; i < num_itens; i++){
-		scanf("%d %d", &peso, &valor);
+		fscanf(f1, "%d %d", &peso, &valor);
 		vetor[i] = *(newProduto(peso, valor, i+1));
 		printf("Razão: %lf\n", vetor[i].razao);
 	}
@@ -59,6 +73,7 @@ int main(int argc, char *argv[]){
 			mochila = mochila - vetor[j].peso;
 			totalpesos += vetor[j].peso;
 			totalvalores += vetor[j].valor;
+			j++;
 			printf("Produto: numero %d, peso: %d, valor: %d\n", vetor[j].numero, vetor[j].peso, vetor[j].valor);
 		}
 		else{
