@@ -12,6 +12,34 @@ Data:
 #include <sys/time.h>
 #include <sys/resource.h>
 #include "produto.h"
+#include <math.h>
+
+
+void possib (int num_linhas, int num_colunas, int **matriz){
+	int cont = 0;
+	bool bit = false;
+	int soma = 0;
+	for(int j=num_colunas-1; j>=0; j--){
+		for(int i=0; i<num_linhas; i++){
+			if(soma == pow(2,cont)){
+				bit = !bit;
+				soma = 0;
+			}
+			if(bit){
+				matriz[i][j] = 1;
+			}
+			else{
+				matriz[i][j] = 0;
+			}
+			soma++;		
+		}
+		soma = 0;
+		bit = false;
+		cont++;
+
+	}
+	printf("saiu \n");
+}
 
 int main(int argc, char *argv[]){
 
@@ -37,19 +65,9 @@ int main(int argc, char *argv[]){
 	FILE *f1, *f2;
 
 	char str1[40], str2[40];
-	int max_peso, num_itens, peso, valor, mochila;
+	int max_peso, num_itens, peso, valor;
 
-	printf("Digite o nome do arquivo de entrada e o de saida:\n");
-	scanf("%s", str1);
-	scanf("%s", str2);
 	
-	f1 = fopen(str1, "r");
-	f2 = fopen(str2, "w");
-
-	fscanf(f1, "%d %d", &max_peso, &num_itens);
-	mochila = max_peso;
-
-	Produto *vetor;
 	vetor = (Produto*)malloc(num_itens * sizeof(Produto));
 
 	for(int i = 0; i < num_itens; i++){
@@ -58,14 +76,41 @@ int main(int argc, char *argv[]){
 	}
 
 	int totalvalores = 0, totalpesos = 0;
-	
-	/*
-	*
-	* Aqui
-	*
-	*/
 
-	fprintf(f2, "Peso Total: %d\nValor Total: %d\n", totalpesos, totalvalores);
+	long num_linhas = pow(2,num_itens);
+
+
+	int **matrizTent;
+
+	matrizTent = (int **) malloc (num_linhas * sizeof (int *));
+
+	for(int i =0; i< num_linhas; i++){
+		matrizTent[i] = (int *) malloc (num_itens * sizeof(int));
+	}
+
+	possib(num_linhas, num_itens, matrizTent);
+
+	int maior = 0, linha;
+
+	for(int i=0; i < num_linhas; i++){
+		for(int j=0; j < num_itens; j++){
+			if(matrizTent[i][j] == 1){
+				totalvalores += vetor[j].valor;
+				totalpesos += vetor[j].peso;valores;= i;
+		}
+		totalvalores = 0;
+		totalpesos = 0;
+	}
+
+	for(int j=0; j<num_itens; j++){
+		if(matrizTent[linha][j] == 1){
+			totalvalores += vetor[j].valor;
+			totalpesos += vetor[j].peso;
+			fprintf(f2, "Produto: %d, Peso: %d, Valor: %d\n", vetor[j].numero, vetor[j].peso, vetor[j].valor);
+		}
+	}
+
+	fprintf(f2, "\nPeso Total: %d\nValor Total: %d\n", totalpesos, totalvalores);
 	
 	gettimeofday(&fim, NULL); //obtem tempo final do programa
 	totalseg = fim.tv_sec - inicio.tv_sec; //diferenca em segundos
