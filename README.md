@@ -7,10 +7,10 @@
 > Recomendo Linux
 
 ```
-make            // Mostra os comandos disponiveis
-make guloso     // Compila e executa o algoritimo Guloso
-make tenta  	// Compila e executa o algoritimo de Tentativa e erro 
-make limpa		// Apaga os arquivos '.o' e o executavel 'exe'
+make              // Mostra os comandos disponiveis
+make guloso       // Compila e executa o algoritimo Guloso
+make tenta        // Compila e executa o algoritimo de Tentativa e erro 
+make limpa        // Apaga os arquivos '.o' e o executavel 'exe'
 ```
 
 [l1]: https://github.com/gabriel-fsantos
