@@ -7,10 +7,10 @@
 > Recomendo Linux
 
 ```
-gcc -c produto.c                                //Compila o arquivo módulo
-gcc -c guluso.c ou tenta-erro.c                 //Compila o arquivo principal
-gcc -o exe produto.o guloso.o ou tenta-erro.o   //Gera um executavel com os dois arquivos linkados
-./exe                                           //Executa
+make            // Mostra os comandos disponiveis
+make guloso     // Compila e executa o algoritimo Guloso
+make tenta  	// Compila e executa o algoritimo de Tentativa e erro 
+make limpa		// Apaga os arquivos '.o' e o executavel 'exe'
 ```
 
 [l1]: https://github.com/gabriel-fsantos

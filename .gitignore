@@ -1,4 +1,5 @@
 exe
+output.txt
 *.d
 
 *.o

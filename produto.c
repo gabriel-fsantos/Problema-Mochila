@@ -17,11 +17,11 @@ Produto* newProduto(int peso, int valor, int numero){
 	p->peso = peso;
 	p->valor = valor;
 	p->numero = numero;
-	if(valor != 0){
-		p->razao = (double)peso/valor;
+	if(peso != 0){
+		p->razao = (double)valor/peso;
 	}
 	else{
-		p->razao = 0;
+		p->razao = valor;
 	}
 	return p;
 };
@@ -32,7 +32,7 @@ void sortRazao(Produto* vet, int tamanho){
 	for (int i = 0; i < tamanho; i++){
         for (int j = 0; j < tamanho; j++){
 
-            if (vet[i].razao < vet[j].razao){
+            if (vet[i].razao > vet[j].razao){
                 auxiliar = vet[i];
                 vet[i] = vet[j];
                 vet[j] = auxiliar;
@@ -47,7 +47,7 @@ void sortValor(Produto* vet, int tamanho){
 	for (int i = 0; i < tamanho; i++){
         for (int j = 0; j < tamanho; j++){
 
-            if (vet[i].valor < vet[j].valor){
+            if (vet[i].valor > vet[j].valor){
                 auxiliar = vet[i];
                 vet[i] = vet[j];
                 vet[j] = auxiliar;
