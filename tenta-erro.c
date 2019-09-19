@@ -38,7 +38,6 @@ void possib (int num_linhas, int num_colunas, int **matriz){
 		cont++;
 
 	}
-	printf("saiu \n");
 }
 
 int main(int argc, char *argv[]){
@@ -67,7 +66,16 @@ int main(int argc, char *argv[]){
 	char str1[40], str2[40];
 	int max_peso, num_itens, peso, valor;
 
+	printf("Digite o nome do arquivo de entrada e o de saida:\n");
+	scanf("%s", str1);
+	scanf("%s", str2);
 	
+	f1 = fopen(str1, "r");
+	f2 = fopen(str2, "w");
+
+	fscanf(f1, "%d %d", &max_peso, &num_itens);
+
+	Produto *vetor;
 	vetor = (Produto*)malloc(num_itens * sizeof(Produto));
 
 	for(int i = 0; i < num_itens; i++){
@@ -79,12 +87,11 @@ int main(int argc, char *argv[]){
 
 	long num_linhas = pow(2,num_itens);
 
-
 	int **matrizTent;
 
 	matrizTent = (int **) malloc (num_linhas * sizeof (int *));
 
-	for(int i =0; i< num_linhas; i++){
+	for(int i = 0; i< num_linhas; i++){
 		matrizTent[i] = (int *) malloc (num_itens * sizeof(int));
 	}
 
@@ -96,8 +103,13 @@ int main(int argc, char *argv[]){
 		for(int j=0; j < num_itens; j++){
 			if(matrizTent[i][j] == 1){
 				totalvalores += vetor[j].valor;
-				totalpesos += vetor[j].peso;valores;= i;
+				totalpesos += vetor[j].peso;
+			}		
 		}
+		if(totalvalores > maior && totalvalores <= max_peso){
+			maior = totalvalores;
+			linha = i;
+		}	
 		totalvalores = 0;
 		totalpesos = 0;
 	}
@@ -147,3 +159,4 @@ int main(int argc, char *argv[]){
 
 	return 0;
 }
+
