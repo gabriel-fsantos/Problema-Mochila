@@ -1,5 +1,5 @@
 exe
-output.txt
+*.txt
 *.d
 
 *.o

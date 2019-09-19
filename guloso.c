@@ -35,7 +35,6 @@ int main(int argc, char *argv[]){
 	long stotalmicroseg, stotalseg; //tempo sistema: tempo que a CPU gasta executando chamadas de sistemas para o programa
 
 	FILE *f1, *f2;
-
 	char str1[40], str2[40];
 	int max_peso, num_itens, peso, valor, mochila;
 
@@ -57,9 +56,9 @@ int main(int argc, char *argv[]){
 		vetor[i] = *(newProduto(peso, valor, i+1));
 	}
 
-	sortRazao(vetor, num_itens);
+	sort(vetor, num_itens);
 
-	//Debug
+	//Debug Printa o vetor
 	/*for(int i = 0; i < num_itens; ++i){	
 		printf("%d %d %.4lf\n", vetor[i].peso, vetor[i].valor, vetor[i].razao);
 	}*/
@@ -68,7 +67,7 @@ int main(int argc, char *argv[]){
 	while(mochila != 0 && j < num_itens){
 
 		if(vetor[j].peso <= mochila){
-			mochila = mochila - vetor[j].peso;
+			mochila -= vetor[j].peso;
 			totalpesos += vetor[j].peso;
 			totalvalores += vetor[j].valor;
 			fprintf(f2, "Produto: %d, Peso: %d, Valor: %d\n", vetor[j].numero, vetor[j].peso, vetor[j].valor);
@@ -77,7 +76,10 @@ int main(int argc, char *argv[]){
 	}
 
 	fprintf(f2, "\nPeso Total: %d\nValor Total: %d\n", totalpesos, totalvalores);
-	
+	fclose(f1);
+	fclose(f2);
+	free(vetor);
+
 	gettimeofday(&fim, NULL); //obtem tempo final do programa
 	totalseg = fim.tv_sec - inicio.tv_sec; //diferenca em segundos
 	totalmicroseg = fim.tv_usec - inicio.tv_usec; //diferenca em microsegundos

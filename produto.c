@@ -26,28 +26,13 @@ Produto* newProduto(int peso, int valor, int numero){
 	return p;
 };
 
-void sortRazao(Produto* vet, int tamanho){
+void sort(Produto* vet, int tamanho){
 
 	Produto auxiliar;
 	for (int i = 0; i < tamanho; i++){
         for (int j = 0; j < tamanho; j++){
 
             if (vet[i].razao > vet[j].razao){
-                auxiliar = vet[i];
-                vet[i] = vet[j];
-                vet[j] = auxiliar;
-            }
-        }
-    }
-};
-
-void sortValor(Produto* vet, int tamanho){
-
-	Produto auxiliar;
-	for (int i = 0; i < tamanho; i++){
-        for (int j = 0; j < tamanho; j++){
-
-            if (vet[i].valor > vet[j].valor){
                 auxiliar = vet[i];
                 vet[i] = vet[j];
                 vet[j] = auxiliar;

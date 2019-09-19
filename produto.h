@@ -21,7 +21,4 @@ bool comparaRazao(Produto p1, Produto p2);
 
 bool comparaValor(Produto p1, Produto p2);
 
-void sortRazao(Produto* vet, int tamanho);
-
-void sortValor(Produto* vet, int tamanho);
-
+void sort(Produto* vet, int tamanho);
