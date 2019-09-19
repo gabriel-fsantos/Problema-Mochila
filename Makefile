@@ -1,7 +1,7 @@
 
 # Mostra os comandos
 all:
-	@echo "COMANDOS DISPONIVEIS:\nmake guloso\nmake tenta\nclean\n"
+	@echo "COMANDOS DISPONIVEIS:\nmake guloso\nmake tenta\nmake limpa\n"
 
 # Compila e executa o algoritimo guloso
 guloso:

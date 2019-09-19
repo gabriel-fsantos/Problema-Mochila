@@ -38,6 +38,18 @@ void geraMatrizPossibilidades(int num_linhas, int num_colunas, bool **matriz){
 	}
 }
 
+void preenche(int *vet, unsigned long tamanho, int num){
+
+	for (int i = 0; i < tamanho; i++){
+		if(num & (unsigned long)pow(2, i)){
+			vet[i] = 1;
+		}
+		else{
+			vet[i] = 0;
+		}
+	}
+}
+
 int main(int argc, char *argv[]){
 
 	// Variaveis relacionadas com a medicao do tempo:
@@ -81,68 +93,43 @@ int main(int argc, char *argv[]){
 	}
 
 	int totalvalores = 0, totalpesos = 0;
-	long num_linhas = pow(2,num_itens);
-	bool **matriz;
+	unsigned long num_linhas = pow(2,num_itens);
 
-	printf("1\n");
-
-	matriz = (bool **) malloc (num_linhas * sizeof (bool *));
-
-	for(int i = 0; i < num_linhas; i++){
-		matriz[i] = (bool *) malloc (num_itens * sizeof(bool));
-	}
-
-	printf("2\n");
-
-	geraMatrizPossibilidades(num_linhas, num_itens, matriz);
-
-
-	//Debug only
-	/*for(int i = 0; i < num_linhas; i++){
-		for(int j = 0; j < num_itens; j++){
-			printf("%d ", matriz[i][j]);	
-		}
-		printf("\n");
-	}*/
-
+	int *vet;
+	vet = (int*) malloc(num_itens * sizeof(int));
 	int maior = 0, linha;
-
-	printf("3\n");
-
-	for(int i = 0; i < num_linhas; i++){
-		for(int j = 0; j < num_itens; j++){
-			if(matriz[i][j]){
+	
+	for (int i = 0; i < num_linhas; i++){
+		preenche(vet, num_itens, i);
+		for(int j = num_itens; j >= 0; j--){
+			if(vet[j] == 1){
 				totalvalores += vetor[j].valor;
 				totalpesos += vetor[j].peso;
-			}	
+			}
 		}
 		if(totalvalores > maior && totalpesos <= max_peso){
-			maior = totalvalores;
 			linha = i;
+			maior = totalvalores;
 		}
 		totalvalores = 0;
-		totalpesos = 0;
+		totalpesos = 0; 
 	}
 
-	printf("4\n");
-
-	for(int j = 0; j < num_itens; j++){
-		if(matriz[linha][j]){
-			totalvalores += vetor[j].valor;
-			totalpesos += vetor[j].peso;
-			fprintf(f2, "Produto: %d, Peso: %d, Valor: %d\n", vetor[j].numero, vetor[j].peso, vetor[j].valor);
+	preenche(vet, num_itens, linha);
+	for(int i = 0; i < num_itens; i++){
+		if(vet[i] == 1){
+			totalvalores += vetor[i].valor;
+			totalpesos += vetor[i].peso;
+			fprintf(f2, "Produto: %d, Peso: %d, Valor: %d\n", vetor[i].numero, vetor[i].peso, vetor[i].valor);
 		}
 	}
 
 	fprintf(f2, "\nPeso Total: %d\nValor Total: %d\n", totalpesos, totalvalores);
+
 	fclose(f1);
 	fclose(f2);
-
-	for(int i = 0; i < num_linhas; i++){
-		free(matriz[i]);	
-	}
-
-	free(matriz);
+	free(vet);
+	free(vetor);
 
 	gettimeofday(&fim, NULL); //obtem tempo final do programa
 	totalseg = fim.tv_sec - inicio.tv_sec; //diferenca em segundos
