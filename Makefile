@@ -1,3 +1,10 @@
+#/************************************************
+#LAED1 - Trabalho Pratico 1
+#Aluno: Gabriel Ferreira / Rebeca Gaia
+#Matricula: 20183025526 / 2018
+#Descricao do programa: Arquivo Makefile para ajudar na compilação e execução
+#Data: 20/09/2019
+#************************************************/
 
 # Mostra os comandos
 all:
