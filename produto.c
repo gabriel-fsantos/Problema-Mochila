@@ -11,12 +11,12 @@ Data:
 #include <math.h>
 #include "produto.h"
 
-Produto* newProduto(int peso, int valor, int numero){
+Produto* newProduto(int peso, int valor, int id){
 
 	Produto* p = (Produto*)malloc(sizeof(Produto));
 	p->peso = peso;
 	p->valor = valor;
-	p->numero = numero;
+	p->id = id;
 	if(peso != 0){
 		p->razao = (double)valor/peso;
 	}
@@ -39,20 +39,4 @@ void sort(Produto* vet, int tamanho){
             }
         }
     }
-};
-
-bool comparaRazao(Produto p1, Produto p2){
-
-	if(p1.razao > p2.razao){
-		return true;
-	}
-	return false;
-};
-
-bool comparaValor(Produto p1, Produto p2){
-
-	if(p1.valor > p2.valor){
-		return true;
-	}
-	return false;
 };

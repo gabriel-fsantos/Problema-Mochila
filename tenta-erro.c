@@ -14,41 +14,7 @@ Data:
 #include <sys/resource.h>
 #include "produto.h"
 
-void geraMatrizPossibilidades(int num_linhas, int num_colunas, bool **matriz){
-	int cont = 0, soma = 0;
-	bool bit = false;
-
-	for(int j = num_colunas-1; j >= 0; j--){
-		for(int i = 0; i < num_linhas; i++){
-			if(soma == pow(2,cont)){
-				bit = !bit;
-				soma = 0;
-			}
-			if(bit){
-				matriz[i][j] = true;
-			}
-			else{
-				matriz[i][j] = false;
-			}
-			soma++;		
-		}
-		soma = 0;
-		bit = false;
-		cont++;
-	}
-}
-
-void preenche(int *vet, unsigned long tamanho, int num){
-
-	for (int i = 0; i < tamanho; i++){
-		if(num & (unsigned long)pow(2, i)){
-			vet[i] = 1;
-		}
-		else{
-			vet[i] = 0;
-		}
-	}
-}
+void preenche(int *vet, unsigned long tamanho, int num);
 
 int main(int argc, char *argv[]){
 
@@ -71,32 +37,38 @@ int main(int argc, char *argv[]){
 	long utotalmicroseg, utotalseg; //tempo usuario: tempo que a CPU gasta executando o programa
 	long stotalmicroseg, stotalseg; //tempo sistema: tempo que a CPU gasta executando chamadas de sistemas para o programa
 
-	FILE *f1, *f2;
-	char str1[40], str2[40];
+	FILE *arq_entrada, *arq_saida;
+	char nome_entrada[50], nome_saida[50];
 	int max_peso, num_itens, peso, valor;
 
 	printf("Digite o nome do arquivo de entrada e o de saida:\n");
-	scanf("%s", str1);
-	scanf("%s", str2);
+	scanf("%s", nome_entrada);
+	scanf("%s", nome_saida);
 
-	f1 = fopen(str1, "r");
-	f2 = fopen(str2, "w");
+	arq_entrada = fopen(nome_entrada, "r");
+	arq_saida = fopen(nome_saida, "w");
 
-	fscanf(f1, "%d %d", &max_peso, &num_itens);
+	if (arq_entrada == NULL){
+		printf("ERRO não foi encontrado o arquivo de entrada\n");
+		return 0;
+	}
+
+	fscanf(arq_entrada, "%d %d", &max_peso, &num_itens);
 
 	Produto *vetor;
 	vetor = (Produto*)malloc(num_itens * sizeof(Produto));
 
 	for(int i = 0; i < num_itens; i++){
-		fscanf(f1, "%d %d", &peso, &valor);
+		fscanf(arq_entrada, "%d %d", &peso, &valor);
 		vetor[i] = *(newProduto(peso, valor, i+1));
 	}
 
-	int totalvalores = 0, totalpesos = 0;
-	unsigned long num_linhas = pow(2,num_itens);
+	fclose(arq_entrada);
 
-	int *vet;
-	vet = (int*) malloc(num_itens * sizeof(int));
+	int totalvalores = 0, totalpesos = 0;
+	unsigned long num_linhas = pow(2, num_itens);
+
+	int *vet = (int*) malloc(num_itens * sizeof(int));
 	int maior = 0, linha;
 	
 	for (int i = 0; i < num_linhas; i++){
@@ -120,14 +92,13 @@ int main(int argc, char *argv[]){
 		if(vet[i] == 1){
 			totalvalores += vetor[i].valor;
 			totalpesos += vetor[i].peso;
-			fprintf(f2, "Produto: %d, Peso: %d, Valor: %d\n", vetor[i].numero, vetor[i].peso, vetor[i].valor);
+			fprintf(arq_saida, "Produto: %d, Peso: %d, Valor: %d\n", vetor[i].id, vetor[i].peso, vetor[i].valor);
 		}
 	}
 
-	fprintf(f2, "\nPeso Total: %d\nValor Total: %d\n", totalpesos, totalvalores);
+	fprintf(arq_saida, "\nPeso Total: %d\nValor Total: %d\n", totalpesos, totalvalores);
 
-	fclose(f1);
-	fclose(f2);
+	fclose(arq_saida);
 	free(vet);
 	free(vetor);
 
@@ -165,4 +136,16 @@ int main(int argc, char *argv[]){
 	printf ("\n");
 
 	return 0;
+}
+
+void preenche(int *vet, unsigned long tamanho, int num){
+
+	for (int i = 0; i < tamanho; i++){
+		if(num & (unsigned long)pow(2, i)){
+			vet[i] = 1;
+		}
+		else{
+			vet[i] = 0;
+		}
+	}
 }

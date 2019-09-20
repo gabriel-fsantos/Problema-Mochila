@@ -2,6 +2,8 @@
 
 **Desenvolvido por [Gabriel][l1] e [Rebeca][l2].**
 
+Solução para o problema da mochila com um algoritmo guloso e com um algoritimo de tentativa e erro.
+
 ### Instruções
 
 > Recomendo Linux

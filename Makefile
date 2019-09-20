@@ -7,7 +7,7 @@ all:
 guloso:
 	@gcc -c produto.c
 	@gcc -c guloso.c
-	@gcc -o exe produto.o guloso.o
+	@gcc -o exe produto.o guloso.o -lm
 	@./exe
 
 # Compila e executa o algoritimo de tentativa e erro

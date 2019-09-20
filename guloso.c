@@ -25,7 +25,6 @@ int main(int argc, char *argv[]){
 
 	/*armazenam a diferenca entre o tempo inicial e o final, ou seja, o tempo
 	total gasto pelo programa todo. */
-
 	gettimeofday(&inicio, NULL); //obtendo o tempo em que o programa comeca.
 
 	int who = RUSAGE_SELF; //man: information shall be returned about resources used by thecurrent process
@@ -34,28 +33,33 @@ int main(int argc, char *argv[]){
 	long utotalmicroseg, utotalseg; //tempo usuario: tempo que a CPU gasta executando o programa
 	long stotalmicroseg, stotalseg; //tempo sistema: tempo que a CPU gasta executando chamadas de sistemas para o programa
 
-	FILE *f1, *f2;
-	char str1[40], str2[40];
-	int max_peso, num_itens, peso, valor, mochila;
+	FILE *arq_entrada, *arq_saida;
+	char nome_entrada[50], nome_saida[50];
+	int max_peso, num_itens, peso, valor;
 
-	printf("Digite o nome do arquivo de entrada e o de saida:\n");
-	scanf("%s", str1);
-	scanf("%s", str2);
+	printf("Digite o nome do arquivo de entrada e de saida:\n");
+	scanf("%s", nome_entrada);
+	scanf("%s", nome_saida);
 	
-	f1 = fopen(str1, "r");
-	f2 = fopen(str2, "w");
+	arq_entrada = fopen(nome_entrada, "r");
+	arq_saida = fopen(nome_saida, "w");
 
-	fscanf(f1, "%d %d", &max_peso, &num_itens);
-	mochila = max_peso;
-
-	Produto *vetor;
-	vetor = (Produto*)malloc(num_itens * sizeof(Produto));
-
-	for(int i = 0; i < num_itens; i++){
-		fscanf(f1, "%d %d", &peso, &valor);
-		vetor[i] = *(newProduto(peso, valor, i+1));
+	if (arq_entrada == NULL){
+		printf("ERRO não foi encontrado o arquivo de entrada\n");
+		return 0;
 	}
 
+	fscanf(arq_entrada, "%d %d", &max_peso, &num_itens);
+
+	Produto *vetor;
+	vetor = (Produto*) malloc(num_itens * sizeof(Produto));
+
+	for(int i = 0; i < num_itens; i++){
+		fscanf(arq_entrada, "%d %d", &peso, &valor);
+		vetor[i] = *(newProduto(peso, valor, i + 1));
+	}
+
+	fclose(arq_entrada);
 	sort(vetor, num_itens);
 
 	//Debug Printa o vetor
@@ -64,20 +68,19 @@ int main(int argc, char *argv[]){
 	}*/
 
 	int j = 0, totalvalores = 0, totalpesos = 0; 
-	while(mochila != 0 && j < num_itens){
+	while(j < num_itens){
 
-		if(vetor[j].peso <= mochila){
-			mochila -= vetor[j].peso;
+		if(vetor[j].peso <= max_peso){
+			max_peso -= vetor[j].peso;
 			totalpesos += vetor[j].peso;
 			totalvalores += vetor[j].valor;
-			fprintf(f2, "Produto: %d, Peso: %d, Valor: %d\n", vetor[j].numero, vetor[j].peso, vetor[j].valor);
+			fprintf(arq_saida, "Produto: %d, Peso: %d, Valor: %d\n", vetor[j].id, vetor[j].peso, vetor[j].valor);
 		}
 		j++;
 	}
 
-	fprintf(f2, "\nPeso Total: %d\nValor Total: %d\n", totalpesos, totalvalores);
-	fclose(f1);
-	fclose(f2);
+	fprintf(arq_saida, "\nPeso Total: %d\nValor Total: %d\n", totalpesos, totalvalores);
+	fclose(arq_saida);
 	free(vetor);
 
 	gettimeofday(&fim, NULL); //obtem tempo final do programa
