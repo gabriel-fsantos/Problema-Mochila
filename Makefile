@@ -8,7 +8,7 @@
 
 # Mostra os comandos
 all:
-	@echo "COMANDOS DISPONIVEIS:\nmake guloso\nmake tenta\nmake limpa\n"
+	@echo "COMANDOS DISPONIVEIS:\nmake gera\nmake guloso\nmake tenta\nmake limpa\n"
 
 # Compila e executa o algoritimo guloso
 guloso:
@@ -23,6 +23,11 @@ tenta:
 	@gcc -c tenta-erro.c
 	@gcc -o exe produto.o tenta-erro.o -lm
 	@./exe
+
+# Gera um arquivo com o numero de itens digitados aleatoriamente
+gera:
+	@gcc gera.c
+	@./a.out
 
 # Apaga os arquivos '.o' e o executavel, NÂO USAR SE NÃO EXISTIR ESSES ARQUIVOS
 limpa:

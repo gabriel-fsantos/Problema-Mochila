@@ -2,18 +2,19 @@
 #include <stdio.h>
 #include <time.h>
 
-#define TAM 10000 
+#define TAM 10000
+#define PESO 500
 
 int main(){
 
 	int a, b;
-	printf("Digite o maximo da mochila e a quantidade: \n");
-	scanf("%d %d", &a, &b);
+	printf("Digite a quantidade de itens: \n");
+	scanf("%d", &b);
 
 	FILE *f;
-	f = fopen("out.txt", "w");;
+	f = fopen("in.txt", "w");;
 
-	fprintf(f, "%d\n%d\n", a, b);
+	fprintf(f, "%d\n%d\n", PESO, b);
 
 	int c, d;
 	srand(time(NULL));

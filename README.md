@@ -10,6 +10,7 @@ Solução para o problema da mochila com um algoritmo guloso e com um algoritimo
 
 ```
 make              // Mostra os comandos disponiveis
+make gera         // Gera um arquivo txt com itens de valores aleatorios 
 make guloso       // Compila e executa o algoritimo Guloso
 make tenta        // Compila e executa o algoritimo de Tentativa e erro 
 make limpa        // Apaga os arquivos '.o' e o executavel 'exe'
