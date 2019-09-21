@@ -1,7 +1,7 @@
 /************************************************
 LAED1 - Trabalho Pratico 1
 Aluno: Gabriel Ferreira / Rebeca Gaia
-Matricula: 20183025526 / 2018
+Matricula: 20183025526 / 20183025508
 Descricao do programa: Problemada Mochila - Solução com Algoritimo de tentativa e erro
 Data: 20/09/2019
 ************************************************/
