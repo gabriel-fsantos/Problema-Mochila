@@ -16,7 +16,7 @@ typedef struct produto{
 	double razao;
 } Produto;
 
-// Função que aloca memoria de um produto e atribui seus atribuos e retorna o produto pronto
+// Função que aloca memoria de um produto e atribui seus atributos e retorna o produto pronto
 Produto* newProduto(int peso, int valor, int id);
 
 // Função que ordena o vetor de produtos, de forma cresente baseado na sua razão
